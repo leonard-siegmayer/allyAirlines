@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- TITLE-->
+{% block title %}Über uns{% endblock %}
+{% block mainHeading %}Über uns{% endblock %}
+
+<!-- Add Active Page Message for Screen Reader -->
+{% block sr_only_placeholder_about %}<span class="sr-only">(aktuelle Seite)</span>{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="/about/">Über uns</a></li>
+{% endblock %}
+
+<!-- THE CONTENT -->
+{% block content %}
+  <!-- Our vision -->
+  <section aria-labelledby="visionHeading">
+    <h2 id="visionHeading" tabindex="-1">Unsere Vision: Barrierefreies Fliegen</h2>
+    <a class="sr-only sr-only-focusable" href="#faq">Abschnitt überspringen</a>
+    {% include "./ourVision.html" %}
+  </section>
+
+  <!-- FAQ -->
+  <section aria-labelledby="faqHeading" id="faq">
+    <h2 id="faqHeading" class="mb-3" tabindex="-1">Häufig gestellte Fragen</h2>
+    <a class="sr-only sr-only-focusable" href="#footer">Abschnitt überspringen</a>
+    {% include "./faq.html" %}
+  </section>
+{% endblock %}

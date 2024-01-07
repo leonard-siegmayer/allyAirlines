@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- FILES and TITLE-->
+{% block css %}{{ block.super }}
+<link rel="stylesheet/less" type="text/css" href="{% static 'booking/style.scss' %}">{% endblock %}
+{% block js %}{{ block.super }}<script src="{% static 'booking/booking.js' %}"></script>{% endblock %}
+{% block title %}Flug Suchen{% endblock %}
+{% block mainHeading %}Flug suchen{% endblock %}
+
+<!-- Add Active Page Message for Screen Reader -->
+{% block sr_only_placeholder_booking %}<span class="sr-only">(aktuelle Seite)</span>{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="/flights">Flug suchen</a></li>
+{% endblock %}
+
+<!-- The CONTENT-->
+{% block content %}
+
+<section aria-labelledby="searchHeading" role="search">
+  <h2 id="searchHeading">Suche</h2>
+  <a class="sr-only sr-only-focusable" href="#flightResultsHeading">Abschnitt überspringen</a>
+  {% include "home/searchForm.html" %}
+</section>
+
+<section aria-labelledby="flightResultsHeading" id="flightResults">
+  <h2 id="flightResultsHeading" tabindex="-1">Gefundene Flüge</h2>
+  <a class="sr-only sr-only-focusable" href="#footer">Abschnitt überspringen</a>
+  {% include "booking/bookingSearchResults.html" with flights=flights csrf_token=csrf_token date=date fullForm=fullForm only %}
+</section>
+
+{% endblock %}

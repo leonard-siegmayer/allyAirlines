@@ -1,0 +1,88 @@
+h3.card-title {
+  font-size: 1.23em;
+  text-align: center;
+  margin: 0px !important;
+  white-space: nowrap;
+}
+
+.continent-card {
+  padding: 3px;
+  margin: 0px;
+  border: 3px solid rgba(255, 255, 255, 0);
+}
+
+.continent-card:hover,
+.continent-card:focus {
+  border: 0px solid rgba(255, 255, 255, 0);
+
+  .card {
+    -webkit-box-shadow: 0px 0px 37px -4px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 37px -4px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 37px -4px rgba(0, 0, 0, 1);
+  }
+}
+
+.continent-card:active {
+  border: 4px solid rgba(255, 255, 255, 0);
+}
+
+.row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.jumbotron {
+  text-align: center;
+  font-size: 1.1em;
+}
+
+cite {
+  display: block;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.list-group {
+  text-align: center;
+}
+
+.carousel-caption {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-size: 1.4em;
+  background-color: rgba(0, 0, 0, 0.884);
+  padding: 0.6em 0;
+}
+
+.popular-carousel-item {
+  border: 3px solid rgba(0, 0, 0, 0);
+  padding: 3px;
+}
+
+.popular-carousel-item:hover,
+.popular-carousel-item:focus {
+  border: 3px solid rgb(0, 0, 0);
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  background-color: black;
+  border: 1px solid white;
+  height: 2em;
+  width: 1.6em;
+}
+
+#reviewCarousel .carousel-indicators li {
+  background-color: black;
+  color: white;
+}
+
+#carousel_popular {
+  .carousel-indicators {
+    background-color: rgba(0, 0, 0, 0.836);
+    width: 130px;
+    height: 22px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

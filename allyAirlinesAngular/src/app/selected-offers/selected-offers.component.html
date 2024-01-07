@@ -1,0 +1,11 @@
+<span *ngFor="let offer of selectedOffers">
+  <a [routerLink]="['offers', offer.campaign]" routerLinkActive="active" class="selectedOfferCard">
+    <mat-card>
+      <img mat-card-image src="assets/images/continents/{{offer.title|lowercase}}.jpg" aria-hidden="true"
+        alt="{{offer.title}}">
+      <mat-card-header>
+        <mat-card-title>{{offer.title}}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </a>
+</span>

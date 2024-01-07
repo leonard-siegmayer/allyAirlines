@@ -1,0 +1,34 @@
+<mat-accordion>
+  <!-- Question 1 -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
+      <h3 mat-panel-title>
+        Kann ich gebuchte Flüge stornieren?
+      </h3>
+    </mat-expansion-panel-header>
+    <p>Sie können ihre Flüge 14 Tage vor Abflug kostenlos stornieren. Kurzfristigere Stornierungen sind nur unter einer
+      Gebühr von 50% des bezahlten Preises möglich.</p>
+  </mat-expansion-panel>
+
+  <!-- Question 2 -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
+      <h3 mat-panel-title>
+        Welche Zahlungsmethoden werden unterstützt?
+      </h3>
+    </mat-expansion-panel-header>
+    <p>Zur Zeit ist es nur möglich mit Kreditkarte zu bezahlen. In Zukunft werden aber weitere Zahlungsmöglichkeiten,
+      wie zum Beispiel PayPal oder Sofort Überweisung, hinzugefügt.</p>
+  </mat-expansion-panel>
+
+  <!-- Question 3 -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
+      <mat-panel-title>
+        <h3>Ich habe weitere Fragen. Wie kann ich Sie kontaktieren?</h3>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>Sie haben die Möglichkeit uns per E-Mail oder telefonisch zu erreichen. Genauere Information finden Sie auf
+      unserer <a [routerLink]="['/contact']" routerLinkActive="active">Kontaktseite</a>.</p>
+  </mat-expansion-panel>
+</mat-accordion>

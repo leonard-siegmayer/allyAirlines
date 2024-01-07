@@ -1,0 +1,29 @@
+<!-- Navigation -->
+<header id="navigation">
+  <app-skip-link targetElement="mainHeader" description="Zum Hauptinhalt springen"></app-skip-link>
+  <app-skip-link targetElement="footer" description="Zur Fußzeile springen"></app-skip-link>
+  <app-navigation></app-navigation>
+</header>
+
+<!-- Animation Toggler -->
+<section aria-labelledby="animationToggler" id="animationTogglerSection">
+  <mat-slide-toggle color="primary" id="animationToggler" (toggleChange)="toggleAnimation()"
+    [checked]="!animationsDisabled" labelPosition="before">
+    {{ animationToggleText }}
+  </mat-slide-toggle>
+</section>
+
+<!-- Content -->
+<main id="content" aria-labelledby="mainHeader">
+  <h1 id="mainHeader">{{header}}</h1>
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer -->
+<footer id="footer" aria-label="Fußzeile">
+  <ul>
+    <li><a [routerLink]="['contact']" routerLinkActive="active">Kontakt</a></li>
+    <li><a [routerLink]="['legal']" routerLinkActive="active">Impressum</a></li>
+  </ul>
+  <p>2020 &#169; Ally Airlines</p>
+</footer>

@@ -1,0 +1,98 @@
+@import '../ally-theme.scss';
+
+@media (min-width: 1550px) {
+
+  #content,
+  #animationTogglerSection {
+    max-width: 2500px;
+    padding: 20px 20%;
+    margin: auto;
+  }
+}
+
+@media (min-width: 1060px) and (max-width: 1550px) {
+
+  #content,
+  #animationTogglerSection {
+    padding: 20px 8%;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1060px) {
+
+  #content,
+  #animationTogglerSection {
+    padding: 20px 6%;
+  }
+}
+
+@media (max-width: 600px) {
+
+  #content,
+  #animationTogglerSection {
+    padding: 20px;
+  }
+}
+
+#animationToggler {
+  float: right;
+}
+
+#animationTogglerSection {
+  padding-top: 0;
+}
+
+app-skip-link,
+app-skip-link:visited {
+  float: left;
+  position: absolute;
+  color: white;
+}
+
+footer {
+  margin-top: 10px;
+  text-align: center;
+  background-color: mat-color($ally-theme-primary);
+  color: white;
+  padding: 5px 0;
+
+  ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  li {
+    padding: 7px;
+    float: left;
+  }
+
+  li a:hover,
+  li a:focus,
+  li a:active {
+    background-color: #000d4d;
+  }
+
+  li:first-child {
+    border-right: 1px solid white;
+  }
+
+  a {
+    padding: 10px;
+    color: white;
+  }
+}
+
+#content {
+  min-height: 76%;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+#navigation app-skip-link {
+  background-color: mat-color($ally-theme-primary);
+}

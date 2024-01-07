@@ -1,0 +1,104 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+<!-- include bootstrap for skip links-->
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+    {% if app_list %}
+    {% for app in app_list %}
+    <div class="app-{{ app.app_label }} module">
+        <table>
+            <caption>
+                <a id="table{{ forloop.counter0 }}" href="{{ app.app_url }}" class="section"
+                    title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">{{ app.name }}</a>
+                <!-- SKIP LINK HAS BEEN ADDED BELOW -->
+                <a href="#{% if not forloop.last %}table{{ forloop.counter }}{% else %}recent-actions-module{% endif %}"
+                    class="sr-only sr-only-focusable text-dark bg-white ml-2 p-1">{% trans "Skip Table" %}</a>
+            </caption>
+            {% for model in app.models %}
+            <tr class="model-{{ model.object_name|lower }}">
+                {% if model.admin_url %}
+                <th scope="row"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+                {% else %}
+                <th scope="row">{{ model.name }}</th>
+                {% endif %}
+
+                {% if model.add_url %}
+                <td><a href="{{ model.add_url }}" class="addlink">{% trans 'Add' %}</a></td>
+                {% else %}
+                <td>&nbsp;</td>
+                {% endif %}
+
+                {% if model.admin_url %}
+                {% if model.view_only %}
+                <td><a href="{{ model.admin_url }}" class="viewlink">{% trans 'View' %}</a></td>
+                {% else %}
+                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                {% endif %}
+                {% else %}
+                <td>&nbsp;</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>{% trans 'You don’t have permission to view or edit anything.' %}</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent actions' %}</h2>
+        <h3 id="myActionsHeader">{% trans 'My actions' %}</h3>
+        {% load log %}
+        {% get_admin_log 10 as admin_log for_user user %}
+        {% if not admin_log %}
+        <p>{% trans 'None available' %}</p>
+        {% else %}
+        <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li
+                class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                <!-- THE LINE BELOW HAS BEEN ADDED TO DESCRIBE THE TYPE OF ACTION, WHICH IS OTHERWISE ONLY PROVIDED AS ICON (Not Screen-Reader Accessible) -->
+                <strong
+                    id="test">{% if entry.is_addition %}{% trans "Added" %}{% endif %}{% if entry.is_change %}{% trans "Changed" %}{% endif %}{% if entry.is_deletion %}{% trans "Deleted" %}{% endif %}</strong>
+                <!-- This content was originally further below -->
+                {% if entry.content_type %}
+                <span class="modelType">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                {% else %}
+                <span class="modelType">{% trans 'Unknown content' %}</span>
+                {% endif %}
+                <br>
+
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                {{ entry.object_repr }}
+                {% else %}
+                <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+
+                <!-- Moved this content to the top and removed the classes, which make the text too small and remove the contrast
+                <br>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                {% endif %}
+                -->
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

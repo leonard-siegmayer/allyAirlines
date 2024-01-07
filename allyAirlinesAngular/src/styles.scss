@@ -1,0 +1,105 @@
+@import 'ally-theme.scss';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin-top: 40px;
+}
+
+button {
+  min-width: 45px !important;
+  min-height: 45px !important;
+}
+
+app-skip-link {
+  display: block;
+  margin-bottom: 15px;
+  
+  :focus {
+    border: 2px solid black !important;
+    padding: 2px;
+  }
+}
+
+h1:focus,
+h2:focus {
+  border: 2px solid black !important;
+  padding: 2px;
+}
+
+// HIGHER CONTRAST FOR AAA-CONFORMANCE
+.mat-input-element:not(.ng-invalid),
+button[ng-reflect-disabled="true"],
+.mat-placeholder-required {
+  color: mat-color($ally-theme-disabled) !important;
+}
+
+.ng-untouched mat-label {
+  color: black !important;
+}
+
+div.mat-tab-label-content {
+  color: black !important;
+}
+
+.mat-tab-label:hover,
+.mat-tab-label:focus {
+  border: 1px solid mat-color($ally-theme-primary);
+  border-bottom: 0;
+}
+
+.mat-header-cell {
+  color: black;
+}
+
+.mat-hint {
+  color: #595959 !important;
+}
+
+.mat-step-header {
+  color: black;
+}
+
+.mat-step-icon:not(.mat-step-icon-selected):not(.mat-step-icon-state-edit) {
+  background-color: #363636;
+}
+
+.mat-calendar-body-label,
+.mat-calendar-table-header {
+  color: #575757;
+}
+
+.mat-calendar-body-disabled .mat-calendar-body-cell-content {
+  background-color: #d1d1d1e1;
+  color: #3d3d3d !important;
+}
+
+.mat-calendar-body-cell-content {
+  color: black;
+}
+
+button:focus,
+button.hover {
+  border: 3px solid rgba(0, 0, 0, 0.74) !important;
+}
+
+button {
+  border: 4px solid rgba(0, 0, 0, 0) !important;
+}
+
+// Increases the line height to pass WCAG Success Criterion 1.4.8
+p {
+  line-height: 160%;
+}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- FILES and TITLE-->
+{% block css %}{{ block.super }}
+<link rel="stylesheet/less" type="text/css" href="{% static 'offers/style.scss' %}">{% endblock %}
+{% block js %}{{ block.super }}<script src="{% static 'offers/offers.js' %}"></script>{% endblock %}
+{% block title %}Angebote{% endblock %}
+{% block mainHeading %}Angebote{% endblock %}
+
+<!-- Add Active Page Message for Screen Reader -->
+{% block sr_only_placeholder_offers %}<span class="sr-only">(aktuelle Seite)</span>{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="/offers">Angebote</a></li>
+{% endblock %}
+
+<!-- The CONTENT-->
+{% block content %}
+{% include "booking/loginRequiredToast.html" %}
+{% for campaignAndOffer in associated_offers %}
+{% include "offers/offersCampaign.html" with campaignAndOffer=campaignAndOffer csrf_token=csrf_token %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,120 @@
+<!-- Selected Flight Information -->
+<section aria-labelledby="selectedFlight">
+  <mat-card>
+    <h2 mat-card-header id="selectedFlight">
+      Ausgewählter Flug
+    </h2>
+    <mat-card-content>
+      <p>Von {{flight.departureAirport.name}} um {{flight.departureTime|time}} nach
+        {{flight.arrivalAirport.name}}
+        um {{flight.arrivalTime|time}}.</p>
+      <p>Am {{date | date:'d. MMMM y' }}. Für{{flight.price| currency:'EUR':'' }}€.</p>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<!-- Checkout Stepper -->
+<section aria-label="Formular zur Buchungsabwicklung">
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <!-- Passenger Information Form Group -->
+    <mat-step [stepControl]="passengerFormGroup" aria-labelledby="step1Header" tabindex="-1">
+      <form [formGroup]="passengerFormGroup">
+        <ng-template matStepLabel>
+          <h2 id="step1Header">Fluggast Informationen</h2>
+        </ng-template>
+        <mat-form-field>
+          <mat-label>Vorname</mat-label>
+          <input matInput type="text" autocomplete="given-name" formControlName="firstName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Nachname</mat-label>
+          <input matInput type="text" autocomplete="family-name" formControlName="lastName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Geburtsdatum</mat-label>
+          <input matInput [max]="today" [matDatepicker]="dayOfBirthPicker" autocomplete="bday"
+            formControlName="dayOfBirth" required>
+          <mat-datepicker-toggle matSuffix [for]="dayOfBirthPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dayOfBirthPicker></mat-datepicker>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Straße und Hausnummer</mat-label>
+          <input matInput type="text" pattern=".*((\D+\d+)|(\d+\D+)).*" autocomplete="billing address-line1"
+            formControlName="streetAndNumber" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Postleitzahl</mat-label>
+          <input matInput type="text" pattern="[0-9]*" autocomplete="billing postal-code" minlength="5" maxlength="5"
+            formControlName="postalCode" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Stadt</mat-label>
+          <input matInput type="text" autocomplete="address-level2" formControlName="city" required>
+        </mat-form-field><br>
+        <button mat-raised-button color="primary" [disabled]="!passengerFormGroup.valid" matStepperNext>Weiter
+          (Zahlungsinformationen)</button>
+      </form>
+    </mat-step>
+
+    <!-- Payment Information Form Group -->
+    <mat-step [stepControl]="paymentFormGroup" aria-labelledby="step2Header" tabindex="-1">
+      <form [formGroup]="paymentFormGroup">
+        <ng-template matStepLabel>
+          <h2 id="step2Header">Zahlungsinformationen</h2>
+        </ng-template>
+        <mat-form-field>
+          <mat-label>Kreditkarteninhaber</mat-label>
+          <input matInput autocomplete="cc-name" formControlName="creditCardOwner" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Kreditkartennummer</mat-label>
+          <input matInput type="text" autocomplete="cc-number" minlength="16" maxlength="16" pattern="[0-9]*"
+            formControlName="creditCardNumber" required>
+          <mat-hint>Bestehend aus 16 Ziffern</mat-hint>
+        </mat-form-field><br />
+        <mat-form-field>
+          <mat-label>Prüfnummer</mat-label>
+          <input matInput type="text" autocomplete="cc-csc" minlength="3" maxlength="3" pattern="[0-9]*"
+            formControlName="securityCode" required>
+          <mat-hint>Bestehend aus 3 Ziffern</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Gültig bis</mat-label>
+          <input matInput type="text" autocomplete="cc-exp" pattern="(20)?(0[1-9]|1[0-2])\W?(20)?[2-9][0-9]"
+            formControlName="expirationDate" required>
+          <mat-hint>Monat/Jahr</mat-hint>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" [disabled]="!paymentFormGroup.valid" matStepperNext>Weiter (Angaben
+            bestätigen)</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Submit Form Group -->
+    <mat-step aria-labelledby="step3Header">
+      <ng-template matStepLabel>
+        <h2 id="step3Header">Angaben bestätigen</h2>
+      </ng-template>
+      <div id="passengerOverview">
+        <h3>Fluggast</h3>
+        <p><strong>Vor- und Nachname:</strong> {{passengerFormGroup.controls['firstName'].value}}
+          {{passengerFormGroup.controls['lastName'].value}}</p>
+        <p><strong>Geburtsdatum:</strong> {{passengerFormGroup.controls['dayOfBirth'].value| date:'d. MMMM y'}}</p>
+        <p><strong>Straße und Hausnummer:</strong> {{passengerFormGroup.controls['streetAndNumber'].value}}</p>
+        <p><strong>Postleitzahl und Ort:</strong> {{passengerFormGroup.controls['postalCode'].value}}
+          {{passengerFormGroup.controls['city'].value}}</p>
+      </div>
+      <div id="paymentOverview">
+        <h3>Zahlungsinformationen</h3>
+        <p><strong>Kreditkarteninhaber:</strong> {{paymentFormGroup.controls['creditCardOwner'].value}}</p>
+        <p><strong>Kreditkartennummer:</strong> {{paymentFormGroup.controls['creditCardNumber'].value}}</p>
+        <p><strong>Prüfnummer:</strong> {{paymentFormGroup.controls['securityCode'].value}}</p>
+        <p><strong>Gültig bis:</strong> {{paymentFormGroup.controls['expirationDate'].value}}</p>
+      </div>
+      <div id="submitButton">
+        <button (click)="submitBooking()" mat-raised-button color="primary">Flug kostenpflichtig buchen</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</section>

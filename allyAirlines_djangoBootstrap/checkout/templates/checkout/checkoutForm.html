@@ -1,0 +1,84 @@
+{% load crispy_forms_tags %}
+
+<form action="/checkout/" class="bg-light text-dark p-3" method="POST" id="contactForm" aria-labelledby="formLabel">
+    <div class="{% if step != 3 %}row{% endif %}">
+        <!-- Overview -->
+        <section role="{% if step != 3 %}complementary{% else %}region{% endif %}" aria-labelledby="overviewHeading" style="overflow:auto"
+            class="{% if step != 3 %}col-lg-4 col-md-6 border-right border-dark d-none d-md-block{% else %}text-center{% endif %}">
+            <h2 id="overviewHeading" tabindex="-1">Übersicht</h2>
+            <div class="{% if step == 3 %}row{% endif %}" id="overviewSections">
+                <!-- Overview Part I: Flight -->
+                <div class="{% if step == 3 %}col-lg{% endif %}" role="region" aria-labelledby="flightHeader">
+                    <h3 id="flightHeader">Flug</h3>
+                    <input type="hidden" name="date" aria-hidden="true" value="{{ date }}">
+                    <h4>Abflug</h4>
+                    <p>{{flight.departureAirport}} {{flight.departureTime}} Uhr</p>
+                    <h4>Ankunft</h4>
+                    <p>{{flight.arrivalAirport}} {{flight.arrivalTime}} Uhr</p>
+                    <h4>Preis</h4>
+                    <p>{{flight.price}}€</p>
+                </div>
+                <!-- Overview Part II: Passenger -->
+                <div class="{% if step == 3 %}col-lg{% endif %}" role="region" aria-labelledby="passengerHeader">
+                    <h3 id="passengerHeader">Fluggast</h3>
+                    {% if passenger %}
+                    <input type="hidden" name="city" value="{{passenger.city}}" aria-hidden="true">
+                    <input type="hidden" name="firstName" value="{{passenger.firstName}}" aria-hidden="true">
+                    <input type="hidden" name="lastName" value="{{passenger.lastName}}" aria-hidden="true">
+                    <input type="hidden" name="streetAndNumber" value="{{passenger.streetAndNumber}}"
+                        aria-hidden="true">
+                    <input type="hidden" name="postalCode" value="{{passenger.postalCode}}" aria-hidden="true">
+                    <input type="hidden" name="dayOfBirth" value='{{passenger.dayOfBirth|date:"Y-m-d"}}'
+                        aria-hidden="true">
+                    <h4>Name</h4>
+                    <p>{{passenger.firstName}} {{passenger.lastName}}</p>
+                    <h4>Adresse</h4>
+                    <p>{{passenger.streetAndNumber}}<br>
+                        {{passenger.postalCode}} {{passenger.city}}</p>
+                    <h4>Geboren am</h4>
+                    <p>{{passenger.dayOfBirth|date:"d.m.yy"}}</p>
+                    {% else %}
+                    <p aria-hidden="true">---</p>
+                    <p class="sr-only">Noch keine Angaben zum Fluggast gemacht.</p>
+                    {% endif %}
+                </div>
+                <!-- Overview Part III: Payment -->
+                <div class="{% if step == 3 %}col-lg{% endif %}" role="region" aria-labelledby="paymentHeader">
+                    <h3 id="paymentHeader">Zahlungsinformationen</h3>
+                    {% if payment %}
+                    <input type="hidden" aria-hidden="true" value="{{payment.validUntil}}" name="validUntil">
+                    <input type="hidden" aria-hidden="true" value="{{payment.creditCardOwner}}" name="creditCardOwner">
+                    <input type="hidden" aria-hidden="true" value="{{payment.creditCardNumber}}" name="creditCardNumber">
+                    <input type="hidden" aria-hidden="true" value="{{payment.controlNumber}}" name="controlNumber">
+                    <h4>Kreditkarteninhaber</h4>
+                    <p>{{payment.creditCardOwner}}</p>
+                    <h4>Kreditkartennummer</h4>
+                    <p>{{payment.creditCardNumber}}</p>
+                    <h4>Prüfziffer</h4>
+                    <p>{{payment.controlNumber}}</p>
+                    <h4>Gültig bis</h4>
+                    <p>{{payment.validUntil}}</p>
+                    {% else %}
+                    <p aria-hidden="true">---</p>
+                    <p class="sr-only">Noch keine Zahlungsinformationen
+                        angegeben.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Form. Content depending on the current step -->
+        <div role="region" {% if step != 3 %}aria-labelledby="formLabel"{% endif %} class="{% if step != 3 %}col{% endif %} text-center" id="currentForm">
+            {% if step != 3 %}
+            <h2 id="formLabel" tabindex="-1">{{ header }}</h2>
+            {{ form|crispy }}
+            {% endif %}
+            {% csrf_token %}
+            <input type="hidden" name="step" aria-hidden="true" value="{{ step }}" id="step">
+            <input type="hidden" name="max_step" aria-hidden="true" value="{{ max_step }}" id="max_step">
+            <input type="hidden" name="previous_step" aria-hidden="true" value="{{ previous_step }}">
+            <input type="hidden" name="flight_id" aria-hidden="true" value="{{ flight_id }}">
+            <button id="submitButton" type="submit" class="btn btn-primary mt-4">{{ nextButtonText }}</button>
+        </div>
+    </div>
+</form>

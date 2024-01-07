@@ -1,0 +1,51 @@
+{% extends "admin/base_site.html" %}
+{% block extrahead %}
+<style>
+    /* Increase the contrast and size in order to achieve a higher WCAG-Conformity for some elements */
+    h1,
+    #myActionsHeader {
+        color: black !important;
+    }
+
+    caption {
+        background-color: #345b6f !important;
+        caption-side: top;
+    }
+
+    #recent-actions-module a,
+    .modelType,
+    tr a {
+        color: #2b4a5a !important;
+    }
+
+    #user-tools {
+        font-size: 1.0em !important;
+    }
+
+    #site-name a {
+        font-size: 1.3em !important;
+        color: white !important;
+    }
+
+    span.mini.quiet {
+        font-size: 1.4em;
+    }
+
+    .breadcrumbs {
+        background-color: #345b6f !important;
+    }
+
+    #header {
+        background-color: #2B4C5C !important;
+    }
+
+    /* Removes the unpredictable tab-order of the save button */
+    #saveButton {
+        float: initial;
+    }
+
+    #deleteButton {
+        float: right !important;
+    }
+</style>
+{% endblock %}

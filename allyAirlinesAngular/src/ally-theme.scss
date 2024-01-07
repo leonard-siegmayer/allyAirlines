@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$ally-theme-primary: mat-palette($mat-light-blue, 900);
+$ally-theme-accent:  mat-palette($mat-lime, A400);
+$ally-theme-warn:    mat-palette($mat-pink, 900);
+$ally-theme-disabled: mat-palette($mat-gray, 800);
+
+$ally-theme: mat-light-theme($ally-theme-primary, $ally-theme-accent, $ally-theme-warn);
+
+@include angular-material-theme($ally-theme);

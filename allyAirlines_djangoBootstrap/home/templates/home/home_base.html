@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+<!-- FILES and TITLE-->
+{% block css %}{{ block.super }}
+<link rel="stylesheet/less" type="text/css" href="{% static 'home/style.scss' %}">{% endblock %}
+{% block js %}{{ block.super }}<script src="{% static 'home/script.js' %}"></script>{% endblock %}
+{% block title %}Startseite{% endblock %}
+
+<!-- Add Active Page Message for Screen Reader -->
+{% block sr_only_placeholder_home %}<span class="sr-only">(aktuelle Seite)</span>{% endblock %}
+
+{% block mainHeading %}Startseite{% endblock %}
+
+<!-- The CONTENT -->
+{% block content %}
+
+<section aria-labelledby="searchFlightHeading" role="search">
+  <h2 id="searchFlightHeading" tabindex="-1">Flug suchen</h2>
+  <a class="sr-only sr-only-focusable" href="#popularHeading">Abschnitt überspringen</a>
+  {% include "./searchForm.html" %}
+</section>
+
+<section aria-labelledby="popularHeading">
+  <h2 id="popularHeading" tabindex="-1">Beliebte Reiseziele</h2>
+  <a class="sr-only sr-only-focusable" href="#selectedOffersHeading">Abschnitt überspringen</a>
+  {% include "./popularDestinations.html" %}
+</section>
+
+<section aria-labelledby="selectedOffersHeading">
+  <h2 id="selectedOffersHeading" tabindex="-1">Angebote nach Kontinent durchsuchen</h2>
+  <a class="sr-only sr-only-focusable" href="#recommendationsHeading">Abschnitt überspringen</a>
+  {% include "./selectedOffers.html" %}
+</section>
+
+<section aria-labelledby="recommendationsHeading">
+  <h2 id="recommendationsHeading" tabindex="-1">Weitere Vorschläge</h2>
+  <a class="sr-only sr-only-focusable" href="#reviewsHeading">Abschnitt überspringen</a>
+  {% include "./recommendations.html" %}
+</section>
+
+<section aria-labelledby="reviewsHeading">
+  <h2 id="reviewsHeading" tabindex="-1">Das sagen unsere Kunden</h2>
+  <a class="sr-only sr-only-focusable" href="#footer">Abschnitt überspringen</a>
+  {% include "./reviews.html" %}
+</section>
+
+{% endblock %}

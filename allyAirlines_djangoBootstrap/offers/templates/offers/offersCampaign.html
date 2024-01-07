@@ -1,0 +1,38 @@
+{% if campaignAndOffer.offers %}
+<!-- Campaign Title and Skip Link -->
+<section aria-labelledby="campaign{{forloop.counter0}}">
+    <h2 id="campaign{{forloop.counter0}}" tabindex="-1">{{ campaignAndOffer.campaign.name }}</h2>
+    <a class="sr-only sr-only-focusable"
+        href="{% if not forloop.last %}#campaign{{forloop.counter}}{% else %}#footer{% endif %}">Abschnitt
+        überspringen</a>
+    <!-- Offers belonging to the campaign -->
+    <div class="row">
+        {% for offer in campaignAndOffer.offers %}
+        <div class="card col-sm-6 col-md-5 col-lg-3 p-0 m-3 m-sm-1 m-md-2 offerCard" style="text-align:center;">
+            <div class="card-body pb-2">
+                <h3 class="m-0 p-0">Abflug</h3>
+                <p class="m-0 p-0">{{offer.flight.departureTime}} Uhr in {{offer.flight.departureAirport}}</p>
+                <h3 class="m-0 mt-2 p-0">Ankunft</h3>
+                <p class="m-0 p-0">{{offer.flight.departureTime}} Uhr in {{offer.flight.arrivalAirport}}</p>
+                <h3 class="m-0 mt-2 p-0">Preis</h3>
+                <p class="m-0 p-0">{{ offer.flight.price }}€
+                    <span class="badge badge-danger m-1"
+                        style="font-weight:100; font-size:1em;">-{{offer.discount}}%</span><span
+                        class="sr-only">Rabatt</span></p>
+            </div>
+            <form class="card-footer" action="/checkout/" method="POST" onsubmit="return showToastIfNotLoggedIn()">
+                {% csrf_token %}
+                <label for="flightDate{{offer.id}}" class="font-weight-bold">Flugdatum wählen</label>
+                <input type="date" min='{% now "Y-m-d" %}' class="form-control" id="flightDate{{offer.id}}" name="date" required>
+                <input type="hidden" name="flight_id" aria-hidden="true" value={{offer.flight.id}}>
+                <input type="hidden" name="step" aria-hidden="true" value="0">
+                <input type="hidden" name="max_step" aria-hidden="true" value="-1">
+                <input type="hidden" name="previous_step" aria-hidden="true" value="-1">
+                <input type="submit" class="btn btn-primary w-100 mt-2"
+                    value="Flug buchen">
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}

@@ -1,0 +1,16 @@
+h3 {
+  font-weight: 500;
+}
+
+mat-expansion-panel-header {
+  background-color: rgb(241, 241, 241) !important;
+}
+
+mat-expansion-panel-header:hover,
+mat-expansion-panel-header:focus {
+  background-color: rgb(218, 218, 218) !important;
+}
+
+mat-expansion-panel {
+  margin-bottom: 3px;
+}

@@ -1,0 +1,50 @@
+mat-card-content article {
+  display: inline-block;
+  width: 50%;
+  padding: 0;
+  text-align: center;
+  font-size: 1.4em;
+
+  label {
+    font-weight: bold;
+  }
+
+  vertical-align: middle;
+}
+
+.responsiveArticle {
+  @media (max-width: 500px) {
+    display: block !important;
+    margin: 80px auto !important;
+    width: 100% !important;
+  }
+}
+
+mat-card-content {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+}
+
+mat-card {
+  margin: 20px 0;
+  border: 1px solid rgba(184, 184, 184, 0.473);
+}
+
+mat-icon {
+  transform: scale(2.5);
+}
+
+mat-card-header,
+mat-card-title {
+  font-weight: bold;
+}
+
+#contactForm {
+  margin: 30px 0;
+  width: 100%;
+  margin-top: 100px;
+}
+
+mat-form-field {
+  min-width: 30%;
+}

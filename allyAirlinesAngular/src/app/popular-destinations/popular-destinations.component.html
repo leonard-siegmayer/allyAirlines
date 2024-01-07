@@ -1,0 +1,17 @@
+<mat-tab-group>
+  <mat-tab *ngFor="let destination of popularDestinations" label="{{destination.label}}">
+    <a [routerLink]="['flights']"
+      [queryParams]="{'departureAirport': destination.departure, 'arrivalAirport': destination.arrival}">
+      <mat-card>
+        <mat-card-content>
+          <img src="assets/images/popular/{{destination.imgName}}" alt="{{destination.label}}" aria-hidden="true"
+            width="1920px" height="680px">
+        </mat-card-content>
+        <mat-card-header>
+          <h3 mat-card-title style="text-align:center">{{destination.description}}</h3>
+          <mat-card-subtitle>{{destination.price}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </a>
+  </mat-tab>
+</mat-tab-group>

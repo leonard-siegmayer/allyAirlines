@@ -1,0 +1,19 @@
+<div class="modal fade" id="confirmModal{{booking.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="confirmModalLabel{{booking.id}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel{{booking.id}}">Sind Sie sicher, dass Sie diesen
+                    Flug stornieren möchten?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-primary" onclick="cancelBooking({{booking.id}})"
+                    data-dismiss="modal">Flug stornieren</button>
+            </div>
+        </div>
+    </div>
+</div>
