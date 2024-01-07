@@ -1,0 +1,14 @@
+<div aria-live="assertive">
+  <!-- Spinner to simulate a loading process -->
+  <mat-progress-spinner *ngIf="loading" color="primary" mode="indeterminate" [mode]="spinnerMode"
+    [value]="spinnerProgress" style="margin:40px auto">
+    aria-label="Bestellung wird verarbeitet. Bitte warten.">
+  </mat-progress-spinner>
+
+  <!-- Success message -->
+  <div *ngIf="!loading">
+    <h2>{{heading}}</h2>
+    <p>Sie haben jederzeit die Möglichkeit Ihre Buchungen einzusehen oder zu stornieren. Gehen Sie dafür einfach zu <a
+        [routerLink]="['/myBookings']" routerLinkActive="active">'Meine Flüge'</a>.</p>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+{% load static %}
+{% load humanize %}
+{% if bookings %}
+<p id="infotext" aria-hidden="true">Für mehr Informationen auf den entsprechenden Flug klicken</p>
+<!-- List of Bookings -->
+<ul id="bookingList" aria-describedby="infotext">
+    {% for booking in bookings %}
+    <li class="mb-4">
+        <!-- Flight Information -->
+        <a role="button" class="row bg-dark text-white rounded mb-0 mt-0 booking" id="booking{{booking.id}}"
+            data-toggle="collapse" data-target="#booking{{ booking.id }}Details" aria-expanded="false"
+            aria-controls="booking{{ booking.id }}Details" href="#">
+            <div class="d-none d-lg-block col-lg-1 my-auto border-right">
+                <img src="{% static 'booking/images/plane_icon1.svg' %}" class="w-100" alt="" aria-hidden="true">
+            </div>
+            <div class="col my-auto pt-2 pb-2">
+                <h2 class="mt-0">Abflug</h2>
+                <p class="mb-0">{{ booking.flight.departureTime | time:"H:i" }} Uhr<br>
+                    {{ booking.flight.departureAirport }}</p>
+            </div>
+            <div class="col-sm-4 col-md-3 my-auto border-right border-left pt-2 pb-2" id="travelDate{{booking.id}}">
+                <h2 class="mt-0">Reisedatum</h2>
+                <p class="mb-0">{{ booking.date | date:"SHORT_DATE_FORMAT"}}<br>({{ booking.date | naturaltime }})
+                </p>
+            </div>
+            <div class="col my-auto pt-2 pb-2">
+                <h2 class="mt-0">Ankunft</h2>
+                <p class="mb-0">{{ booking.flight.arrivalTime | time:"H:i"  }}
+                    Uhr<br>{{ booking.flight.arrivalAirport }}</p>
+            </div>
+            <div class="d-none d-lg-block col-lg-1 my-auto border-left">
+                <img src='{% static "booking/images/plane_icon2.svg" %}' class="w-100" alt="" aria-hidden="true">
+            </div>
+        </a>
+
+        <!-- Passenger and Payment Details -->
+        <div class="collapse" id="booking{{ booking.id }}Details">
+            <div class="card">
+                <div class="card-body row text-center pt-0" id="details{{booking.id}}">
+                    <div class="col">
+                        <h3 class="card-title">Passagierer</h3>
+                        <h4 class="card-subtitle mb-2 text-muted">Name:</h4>
+                        <p class="card-text">{{ booking.passenger.firstName }} {{ booking.passenger.lastName }}</p>
+                        <h4 class="card-subtitle mb-2 text-muted">Adresse:</h4>
+                        <p class="card-text">
+                            {{ booking.passenger.postalCode }} {{ booking.passenger.city }}<br>
+                            {{ booking.passenger.streetAndNumber }}
+                        </p>
+                        <h4 class="card-subtitle mb-2 text-muted">Geburtsdatum:</h4>
+                        <p class="card-text">{{ booking.passenger.dayOfBirth }}</p>
+                    </div>
+                    <div class="col">
+                        <h3 class="card-title">Zahlungsinformationen</h3>
+                        <h4 class="card-subtitle mb-2 text-muted">Kreditkarteninhaber:</h4>
+                        <p class="card-text">{{ booking.payment.creditCardOwner }}</p>
+                        <h4 class="card-subtitle mb-2 text-muted">Kreditkartennummer:</h4>
+                        <p class="card-text">{{ booking.payment.creditCardNumber }}</p>
+                        <h4 class="card-subtitle mb-2 text-muted">Prüfnummer:</h4>
+                        <p class="card-text">{{ booking.payment.controlNumber }}</p>
+                        <h4 class="card-subtitle mb-2 text-muted">Gültig bis (Monat/Jahr):</h4>
+                        <p class="card-text">{{ booking.payment.validUntil }}</p>
+                    </div>
+                </div>
+                <button id="cancelButton{{booking.id}}" class="btn btn-danger text-center" data-toggle="modal"
+                    data-target="#confirmModal{{booking.id}}">Flug stornieren</button>
+            </div>
+        </div>
+
+        <!-- Confirm Modal -->
+        {% include "./confirmModal.html" with booking=booking %}
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- No bookings yet alert -->
+{% else %}
+<div class="alert alert-warning" role="alert" id="noBookingsAlert">
+    Sie haben noch keine Flüge gebucht.
+</div>
+{% endif %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- FILES and TITLE -->
+{% block css %}{{ block.super }}
+<link rel="stylesheet/less" type="text/css" href="{% static 'manageBookings/style.scss' %}">{% endblock %}
+{% block title %}Mein Konto{% endblock %}
+{% block mainHeading %}Meine Flüge{% endblock %}
+
+<!-- Adding AJAX for the cancellation of bookings -->
+{% block placeholderInHeader %}
+<script>
+  function cancelBooking(id) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        cancelledBooking = JSON.parse(this.responseText).booking[0];
+
+        document.getElementById(`travelDate${id}`).innerHTML = `<p class="bg-danger text-white">STORNIERT</p>`;
+        document.getElementById(`cancelButton${id}`).remove();
+      }
+    };
+    xhttp.open("GET", `{% url "cancelBooking" %}?id=${id}`, true);
+    xhttp.send();
+  }
+</script>
+{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="/myBookings">Meine Flüge</a></li>
+{% endblock %}
+
+<!-- The CONTENT -->
+{% block content %}
+<a class="sr-only sr-only-focusable" href="#footer">Abschnitt überspringen</a>
+{% include "./myBookings.html" with bookings=bookings %}
+{% endblock %}

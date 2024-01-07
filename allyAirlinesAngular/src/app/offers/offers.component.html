@@ -1,0 +1,36 @@
+<section *ngFor="let campaign of campaigns; let i = index;" attr.aria-labelledby="campaign{{i}}">
+  <!-- Campaign title and skip link -->
+  <h2 id="campaign{{i}}" tabindex="-1">{{campaign.name}}</h2>
+  <app-skip-link [targetElement]='getSkipLinkTarget(i)'></app-skip-link>
+
+  <!-- Campaign offers -->
+  <mat-card role="region" *ngFor="let offer of getOffersByCampaign(campaign); let j = index"
+    attr.aria-labelledby="offerTitle{{i}}{{j}}">
+    <mat-card-header matBadge="-{{offer.discount}}%" matBadgeSize="large" matBadgePosition="after" matBadgeColor="warn"
+      matBadgeDescription="Preis reduziert">
+      <h3 mat-card-title id="offerTitle{{i}}{{j}}">{{offer.flight.departureAirport.name}} nach
+        {{offer.flight.arrivalAirport.name}}</h3>
+    </mat-card-header>
+    <mat-divider aria-hidden="true"></mat-divider>
+    <h4>Abflug</h4>
+    <p>{{offer.flight.departureTime.hours}}:{{offer.flight.departureTime.minutes}} Uhr in
+      {{offer.flight.departureAirport.name}}</p>
+    <h4>Ankunft</h4>
+    <p>{{offer.flight.arrivalTime.hours}}:{{offer.flight.arrivalTime.minutes}} Uhr in
+      {{offer.flight.arrivalAirport.name}}</p>
+    <h4>Preis</h4>
+    <p>{{offer.flight.price}}€</p>
+    <mat-divider aria-hidden="true"></mat-divider>
+    <mat-card-actions>
+      <mat-form-field appearance="outline">
+        <mat-label>Flugdatum auswählen</mat-label>
+        <input matInput [min]="minDate" [matDatepicker]="picker" #dateInput required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" role="link"
+        (click)="checkout(offer.flight.id, dateInput.value)" [disabled]="!dateInput.value"
+        [attr.aria-label]="getLabel(i, j)">Dieses Angebot buchen</button>
+    </mat-card-actions>
+  </mat-card>
+</section>

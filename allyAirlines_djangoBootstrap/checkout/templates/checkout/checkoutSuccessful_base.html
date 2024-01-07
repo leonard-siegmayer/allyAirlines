@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Buchung abgeschlossen{% endblock %}
+{% block mainHeading %}Buchungsabwicklung{% endblock %}
+{% block js %}{{ block.super }}<script src="{% static 'checkout/checkoutSuccessful.js' %}"></script>{% endblock %}
+
+<!-- Add Active Page Message for Screen Reader -->
+{% block sr_only_placeholder_booking %}<span class="sr-only">(aktuelle Seite)</span>{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="/flights">Flug Suchen</a></li>
+<li class="breadcrumb-item"><a href="/checkout">Flug Buchen</a></li>
+{% endblock %}
+
+<!-- The CONTENT -->
+{% block content %}
+<div id="successContainer" aria-live="assertive">
+    <div class="spinner-border m-auto p-auto" style="width: 7rem; height: 7rem;" role="status">
+        <span class="sr-only">Buchung wird abgeschlossen. Bitte warten...</span>
+    </div>
+</div>
+{% endblock %}

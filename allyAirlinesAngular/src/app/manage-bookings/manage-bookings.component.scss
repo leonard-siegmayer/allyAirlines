@@ -1,0 +1,86 @@
+.optionsButton:hover,
+.optionsButton:focus {
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.optionsButton {
+  border: 1px solid rgba(0, 0, 0, 0);
+  margin-right: 20px;
+}
+
+#bookingInfos p {
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+
+#bookingInfos h4 {
+  margin: 5px 0;
+}
+
+#bookingInfosModalContainer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(189, 189, 189, 0.301);
+  font-size: 1.1em;
+
+  mat-card {
+    font-size: 1.3em;
+
+    mat-card-content h4,
+    mat-card-content p {
+      font-size: 1.2em;
+    }
+  }
+}
+
+#passengerCard,
+#paymentCard {
+  display: inline-block;
+  width: 40%;
+  margin: 2%;
+}
+
+@media(max-width: 800px) {
+
+  #passengerCard,
+  #paymentCard {
+    width: 90%;
+  }
+}
+
+#bookingInfosModal {
+  max-height: 65%;
+  overflow: auto;
+  width: 76%;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+  @media(max-height: 400px) {
+    margin-top: 2%;
+  }
+
+  background-color: white;
+  padding: 40px;
+  text-align: center;
+
+  h3 {
+    background-color: #343a40;
+    padding: 2px 25px;
+    color: white;
+  }
+
+  p {
+    margin-top: 3px;
+  }
+
+  h4 {
+    margin-bottom: 3px;
+    margin-top: 5px;
+  }
+
+}

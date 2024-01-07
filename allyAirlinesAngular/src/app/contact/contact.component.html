@@ -1,0 +1,78 @@
+<!-- Skip Link -->
+<app-skip-link targetElement="footer" description="Zur Fußzeile springen"></app-skip-link>
+
+<!-- Contact by phone -->
+<section aria-labelledby="byPhoneHeading">
+  <mat-card>
+    <mat-card-header>
+      <h2 id="byPhoneHeading" mat-card-title>Telefonisch</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Our phone number -->
+      <article aria-labelledby="phoneHeading" class="responsiveArticle">
+        <mat-icon id="phoneHeading">smartphone</mat-icon>
+        <h3>Unsere Telefonnummer</h3>
+        <p>01234/567891011</p>
+      </article>
+      <!-- Times -->
+      <article aria-labelledby="timesHeading" class="responsiveArticle">
+        <mat-icon>access_time</mat-icon>
+        <h3 id="timesHeading">Sie erreichen uns zu folgenden Zeiten</h3>
+        <p>
+          Mo - Fr: 07:00 - 20:00 Uhr<br>
+          Sa: 08:00 - 17:00 Uhr<br>
+          So: 08:00 - 12:00 Uhr
+        </p>
+      </article>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<!-- Contact by Writing-->
+<section aria-labelledby="byWritingHeading">
+  <mat-card>
+    <mat-card-header>
+      <h2 id="byWritingHeading" mat-card-title>Schriftlich</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Our E-Mail -->
+      <article aria-labelledby="emailHeading" class="responsiveArticle">
+        <mat-icon>alternate_email</mat-icon>
+        <h3 id="emailHeading">Unsere E-Mail Adresse</h3>
+        <p>kontakt@allyAirlines.de</p>
+      </article>
+      <!-- Our adress -->
+      <article aria-labelledby="adressHeading" class="responsiveArticle">
+        <mat-icon>mail_outline</mat-icon>
+        <h3 id="adressHeading">Unsere Postadresse</h3>
+        <p>
+          Ally Airlines - Kundensupport<br>
+          Musterstraße 21b<br>
+          98761 Musterhausen
+        </p>
+      </article>
+      <mat-divider style="margin-top: 50px"></mat-divider>
+      <!-- Contact Form -->
+      <article id="contactForm" aria-labelledby="contactHeading">
+        <mat-icon>chat_bubble_outline</mat-icon><br>
+        <h3 id="contactHeading">Oder nutzen Sie unser Kontaktformular</h3>
+        <form [formGroup]="contactForm" (ngSubmit)="openSnackBar()" aria-label="Kontaktformular">
+          <mat-form-field>
+            <mat-label>E-Mail</mat-label>
+            <input matInput type="email" formControlName="email" required>
+          </mat-form-field><br />
+          <mat-form-field>
+            <mat-label>Betreff</mat-label>
+            <input matInput formControlName="subject" required>
+          </mat-form-field><br />
+          <mat-form-field>
+            <mat-label>Nachricht</mat-label>
+            <textarea matInput rows="5" formControlName="message" required></textarea>
+          </mat-form-field><br>
+          <button type="submit" mat-raised-button color="primary" [disabled]="!contactForm.valid">Nachricht
+            abschicken</button>
+        </form>
+      </article>
+    </mat-card-content>
+  </mat-card>
+</section>

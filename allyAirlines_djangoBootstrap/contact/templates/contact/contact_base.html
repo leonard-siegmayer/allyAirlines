@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- FILES and TITLE-->
+{% block css %}{{ block.super }}
+<link rel="stylesheet/less" type="text/css" href="{% static 'contact/style.scss' %}">{% endblock %}
+{% block title %}Kontakt{% endblock %}
+{% block mainHeading %}Kontakt{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="/contact">Kontakt</a></li>
+{% endblock %}
+
+<!-- The CONTENT -->
+{% block content %}
+<a class="sr-only sr-only-focusable" href="#footer">Abschnitt überspringen</a>
+<div id="contact">
+    <section aria-labelledby="byPhoneHeading">
+        <h2 class="bg-dark text-white rounded-top" id="byPhoneHeading">Telefonisch</h2>
+        {% include "./byPhone.html" %}
+    </section>
+
+    <section aria-labelledby="byWritingHeading">
+        <h2 class="bg-dark text-white rounded-top" id="byWritingHeading">Schriftlich</h2>
+        {% include "./byWriting.html" with form=form csrf_token=csrf_token formSent=formSent %}
+    </section>
+</div>
+{% endblock %}

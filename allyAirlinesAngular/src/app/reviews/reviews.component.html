@@ -1,0 +1,10 @@
+<mat-tab-group>
+  <mat-tab *ngFor="let review of reviews" label="{{review.user}}">
+    <mat-card>
+      <mat-card-content>
+        <img src="assets/images/profile/face{{review.number}}.png" alt="Foto von {{review.user}}" aria-hidden="true">
+        <cite style="margin: auto">{{review.message}}</cite>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>

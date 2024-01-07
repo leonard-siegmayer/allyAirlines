@@ -1,0 +1,36 @@
+mat-card {
+  width: 250px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+  border: 1px solid rgb(196, 196, 196);
+  text-align: center;
+
+  h4 {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-top: 5px;
+  }
+}
+
+mat-card:hover {
+  border: 1px solid rgb(99, 99, 99);
+}
+
+mat-card-actions {
+  text-align: center;
+}
+
+.mat-badge-content {
+  width: auto;
+  display: grid;
+  min-width: 32px;
+  min-height: 28px;
+  text-align: center;
+  align-items: center;
+  padding: 5px 3px;
+  top: -20px;
+  right: -22px;
+}

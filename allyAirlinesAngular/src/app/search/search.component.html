@@ -1,0 +1,41 @@
+<mat-card>
+  <form [formGroup]="searchForm" (ngSubmit)="emitSearch()">
+    <!-- Date Input -->
+    <mat-form-field appearance="outline">
+      <mat-label>Flug Datum</mat-label>
+      <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Departure Input -->
+    <mat-form-field appearance="outline">
+      <mat-icon matSuffix>flight_takeoff</mat-icon>
+      <mat-label>Start Flughafen</mat-label>
+      <input type="text" matInput formControlName="departureAirport" [matAutocomplete]="departureAutoComplete" required>
+      <mat-autocomplete #departureAutoComplete>
+        <mat-optgroup *ngFor="let group of departureAirportOptions | async" [label]="group.country">
+          <mat-option *ngFor="let airport of group.airports" [value]="airport">
+            {{airport}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Arrival Input -->
+    <mat-form-field appearance="outline">
+      <mat-label>Ziel Flughafen</mat-label>
+      <input type="text" matInput formControlName="arrivalAirport" [matAutocomplete]="arrivalAutoComplete" required>
+      <mat-icon matSuffix>flight_land</mat-icon>
+      <mat-autocomplete #arrivalAutoComplete>
+        <mat-optgroup *ngFor="let group of arrivalAirportOptions | async" [label]="group.country">
+          <mat-option *ngFor="let airport of group.airports" [value]="airport">
+            {{airport}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </mat-form-field>
+    <br>
+    <button type="submit" [disabled]="!searchForm.valid" mat-raised-button color="primary">Flüge suchen</button>
+  </form>
+</mat-card>

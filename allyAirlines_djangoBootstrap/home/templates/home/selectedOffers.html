@@ -1,0 +1,14 @@
+{% load static %}
+
+<div class="row">
+  {% for offer in selectedOffers %}
+  <a href="offers/?filter={{ offer }}" class="continent-card col-6 col-md-5 col-xl-2 m-auto">
+    <div class="card text-white bg-dark">
+      <img class="card-img-top" src="/static/home/images/continents/{{offer}}.jpg" aria-hidden="true" alt="{{ offer }}">
+      <div class="card-body">
+        <h3 class="card-title">{{ offer }}</h3>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>

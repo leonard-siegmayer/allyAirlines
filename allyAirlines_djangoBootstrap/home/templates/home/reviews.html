@@ -1,0 +1,40 @@
+{% load static %}
+{% static 'home/images/profile/' as reviewPath %}
+<div id="reviewCarousel" class="carousel slide jumbotron" data-ride="carousel" data-interval="false">
+  <a class="carousel-control-prev" href="#reviewCarousel" role="button" data-slide="prev" style="">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only text-dark">Vorherige Review</span>
+  </a>
+  <a class="carousel-control-next" href="#reviewCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only text-dark">Nächste Review</span>
+  </a>
+
+  <div class="carousel-inner">
+
+    {% for review in reviews %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <div class="media text-dark">
+        <img src="{{reviewPath}}{{review.fileName}}.png" class="d-none d-md-block profile_picture col-2 rounded-circle"
+          alt="Foto von {{review.author}}" aria-hidden="true">
+        <p class="media-body align-self-center">
+          <cite>"{{review.description}}"</cite>- {{review.author}} -
+        </p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <ol class="carousel-indicators">
+    <li data-target="#reviewCarousel" data-slide-to="0" class="active" aria-controls="reviewCarousel">
+    </li>
+    <li data-target="#reviewCarousel" data-slide-to="1" aria-controls="reviewCarousel">
+    </li>
+    <li data-target="#reviewCarousel" data-slide-to="2" aria-controls="reviewCarousel">
+    </li>
+    <li data-target="#reviewCarousel" data-slide-to="3" aria-controls="reviewCarousel">
+    </li>
+    <li data-target="#reviewCarousel" data-slide-to="4" aria-controls="reviewCarousel">
+    </li>
+  </ol>
+</div>

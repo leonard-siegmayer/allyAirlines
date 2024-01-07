@@ -1,0 +1,49 @@
+<mat-toolbar color="primary" role="navigation" id="navigation">
+  <a [routerLink]="['']" id="logo">
+    <img src="assets/logo.png" width="277px" height="57px" alt="Ally Airlines">
+  </a>
+
+  <span style="flex: 1 1 auto;"></span>
+  <!-- Extended Navbar -->
+  <ul *ngIf="!showCollapseNav">
+    <li><a [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Startseite</a></li>
+    <li><a [routerLink]="['flights']" routerLinkActive="active">Flug Suchen</a></li>
+    <li><a [routerLink]="['offers']" routerLinkActive="active">Angebote</a></li>
+    <li><a [routerLink]="['about']" routerLinkActive="active">Über uns</a></li>
+    <li *ngIf="!isLoggedIn">
+      <a role="button" class="cursorPointer" tabindex="0" (click)="openLoginDialog()"
+        (keydown.enter)="openLoginDialog()" id="loginButton">Anmelden</a>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <a id="accountNavLink" role="button" class="cursorPointer" tabindex="0" [matMenuTriggerFor]="accountDropdown"
+        #matMenuTrigger="matMenuTrigger" (keydown.enter)="triggerMyAccountNav(matMenuTrigger)">Mein Konto</a>
+      <mat-menu #accountDropdown>
+        <a mat-menu-item [routerLink]="['myBookings']" routerLinkActive="activeDropdown" #mybookingsLink>Meine Flüge</a>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">Abmelden</button>
+      </mat-menu>
+    </li>
+  </ul>
+
+  <!-- Toggled Navbar -->
+  <span *ngIf="showCollapseNav">
+    <button mat-icon-button [matMenuTriggerFor]="navDropdown" aria-label="Navigation anzeigen">
+      <mat-icon style="font-size: 2.4em;">menu</mat-icon>
+    </button>
+    <mat-menu #navDropdown>
+      <a mat-menu-item [routerLink]="['']" routerLinkActive="activeDropdown"
+        [routerLinkActiveOptions]="{ exact: true }">Startseite</a>
+      <a mat-menu-item [routerLink]="['flights']" routerLinkActive="activeDropdown">Flug Suchen</a>
+      <a mat-menu-item [routerLink]="['offers']" routerLinkActive="activeDropdown">Angebote</a>
+      <a mat-menu-item [routerLink]="['about']" routerLinkActive="activeDropdown">Über uns</a>
+      <button mat-menu-item *ngIf="!isLoggedIn" (click)="openLoginDialog()" id="loginButton">Anmelden</button>
+      <button mat-menu-item *ngIf="isLoggedIn" class="cursorPointer" [matMenuTriggerFor]="accountDropdown">Mein
+        Konto</button>
+      <mat-menu #accountDropdown>
+        <a mat-menu-item [routerLink]="['myBookings']" routerLinkActive="activeDropdown">Meine Flüge</a>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">Abmelden</button>
+      </mat-menu>
+    </mat-menu>
+  </span>
+</mat-toolbar>

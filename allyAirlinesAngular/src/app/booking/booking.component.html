@@ -1,0 +1,13 @@
+<!-- Search Section -->
+<section aria-labelledby="search">
+  <h2 id="search">Suche</h2>
+  <app-skip-link targetElement="searchResults"></app-skip-link>
+  <app-search (search)="search($event)"></app-search>
+</section>
+
+<!-- Search Results -->
+<section aria-labelledby="searchResults">
+  <h2 id="searchResults">Gefundene Flüge</h2>
+  <app-skip-link targetElement="footer"></app-skip-link>
+  <app-search-results [searchResults]="searchResults"></app-search-results>
+</section>

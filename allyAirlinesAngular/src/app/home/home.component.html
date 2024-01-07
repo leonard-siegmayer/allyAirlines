@@ -1,0 +1,37 @@
+<!-- Search Form -->
+<section aria-labelledby="search">
+  <h2 id="search">Flug suchen</h2>
+  <app-skip-link targetElement="popular"></app-skip-link>
+  <app-search></app-search>
+</section>
+
+<!-- Popular destinations -->
+<section aria-labelledby="popular">
+  <h2 id="popular">Beliebte Reiseziele</h2>
+  <app-skip-link targetElement="selectedOffers"></app-skip-link>
+  <app-popular-destinations></app-popular-destinations>
+</section>
+
+<!-- Offers by continent -->
+<section aria-labelledby="selectedOffers">
+  <h2 id="selectedOffers">Angebot nach Kontinent durchsuchen</h2>
+  <app-skip-link targetElement="recommendations"></app-skip-link>
+  <app-selected-offers></app-selected-offers>
+</section>
+
+<!-- Recommendations -->
+<section aria-labelledby="recommendations">
+  <h2 id="recommendations">Weitere Vorschläge</h2>
+  <app-skip-link targetElement="reviews"></app-skip-link>
+  <app-recommendations>
+    <app-recommendations-entry *ngFor="let r of recommendations; let i = index" class="mat-elevation-z2" id="entry{{i}}" [recommendation]="r">
+    </app-recommendations-entry>
+  </app-recommendations>
+</section>
+
+<!-- User Reviews -->
+<section aria-labelledby="reviews">
+  <h2 id="reviews">Das sagen unsere Kunden</h2>
+  <app-skip-link targetElement="footer"></app-skip-link>
+  <app-reviews></app-reviews>
+</section>

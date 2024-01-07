@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- FILES and TITLE-->
+{% block title %}Impressum{% endblock %}
+{% block mainHeading %}Impressum{% endblock %}
+{% block css %}{{ block.super }}
+<link rel="stylesheet/less" type="text/css" href="{% static 'legal/style.scss' %}">{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="/legal">Impressum</a></li>
+{% endblock %}
+
+<!-- The CONTENT -->
+{% block content %}
+<a class="sr-only sr-only-focusable" href="#footer">Abschnitt überspringen</a>
+{% include "./legalContent.html" %}
+{% endblock %}

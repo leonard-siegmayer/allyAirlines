@@ -1,0 +1,17 @@
+<div class="row progress mt-3 border-dark border" style="min-height: 3.5em;" id="progressTracker">
+    <a href="#" onclick="goBackToStep('0')" role="progressbar" aria-valuenow="33" aria-valuemin="0"
+        aria-valuemax="100"
+        class="col progress-bar text-white {% if step > 0 %}bg-success{% else %}bg-light text-dark{% endif %}">
+        Fluggast Informationen
+    </a>
+    <a class="col progress-bar text-white {% if step > 1 %}bg-success" aria-valuenow="33{% else %}bg-light text-dark" aria-valuenow="0{% endif %}"
+        {% if step == 2 or max_step == '1' or max_step == '2' %}onclick="goBackToStep('1')" href="#" {% else %}
+        aria-disabled="true" {% endif %} role="progressbar" aria-valuemin="0" aria-valuemax="100">
+        Zahlungsinformationen
+    </a>
+    <a class="col progress-bar text-white {% if step > 2 %}bg-success" aria-valuenow="33{% else %}bg-light text-dark" aria-valuenow="0{% endif %}"
+        {% if max_step == '1' or step == 3 %}onclick="goBackToStep('2')" href="#" {% else %} aria-disabled="true"
+        {% endif %} role="progressbar" aria-valuenow={{step}} aria-valuemin="0" aria-valuemax="100">
+        Angaben bestätigen
+    </a>
+</div>

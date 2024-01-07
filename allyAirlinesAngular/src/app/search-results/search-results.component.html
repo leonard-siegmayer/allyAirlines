@@ -1,0 +1,44 @@
+<!-- Form misses some information message -->
+<p *ngIf="!displayedResults; else searchResults">Bitte vervollständigen Sie das Suchformular.</p>
+
+<!-- Table for the search results -->
+<ng-template #searchResults>
+  <mat-table *ngIf="displayedResults.length != 0; else noResults" [dataSource]="displayedResults" matSort
+    class="mat-elevation-z8">
+    <!-- Departure Column -->
+    <ng-container matColumnDef="departure">
+      <mat-header-cell *matHeaderCellDef> Abflug </mat-header-cell>
+      <mat-cell *matCellDef="let element"> Von {{element.departureAirport.name}} um
+        {{element.departureTime | time}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Arrival Column -->
+    <ng-container matColumnDef="arrival">
+      <mat-header-cell *matHeaderCellDef> Ankunft </mat-header-cell>
+      <mat-cell *matCellDef="let element"> In {{element.arrivalAirport.name}} um {{ element.arrivalTime | time }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef> Preis </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.price | currency:'EUR':'' }}€ </mat-cell>
+    </ng-container>
+
+    <!-- Table Content -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" tabindex="0" (keyup.enter)="checkout(row.id)"
+      (click)="checkout(row.id)" role="link"></mat-row>
+  </mat-table>
+
+  <br>
+  <mat-paginator *ngIf="searchResults.length" [length]="searchResults.length" [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions" (page)="changeTablePage($event)">
+  </mat-paginator>
+</ng-template>
+
+<!-- No results found message -->
+<ng-template #noResults>
+  <p>Keine Ergebnisse für diese Suche gefunden.</p>
+</ng-template>

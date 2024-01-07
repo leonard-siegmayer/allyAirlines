@@ -1,0 +1,30 @@
+{% load static %}
+<nav class="navbar navbar-expand-xl navbar-dark bg-primary text-white" id="main-nav" aria-label="Hauptnavigation">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'logo.png' %}" width="277" height="57" class="d-inline-block align-top"
+                alt="Ally Airlines">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navLinks"
+            aria-controls="navLinks" aria-expanded="false" aria-label="Toggle Navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navLinks">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link active" id="homeNavLink"
+                        href="/">Startseite{% block sr_only_placeholder_home %}{% endblock %}</a></li>
+                <li class="nav-item"><a class="nav-link" id="flightsNavLink" href="/flights">Flug
+                        Suchen{% block sr_only_placeholder_booking %}{% endblock %}</a></li>
+                <li class="nav-item"><a class="nav-link" id="offersNavLink"
+                        href="/offers">Angebote{% block sr_only_placeholder_offers %}{% endblock %}</a></li>
+                <li class="nav-item"><a class="nav-link" id="aboutNavLink" href="/about">Über
+                        uns{% block sr_only_placeholder_about %}{% endblock %}</a></li>
+                <li class="nav-item" id="loginOrAccount">
+                    <a class="nav-link" id="myBookingsNavLink" role="button" data-toggle="modal" data-target="#loginModal"
+                        href="#">Anmelden</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

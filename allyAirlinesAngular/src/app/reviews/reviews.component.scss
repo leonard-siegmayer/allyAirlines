@@ -1,0 +1,28 @@
+mat-card-content {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+  img {
+    width: 20%;
+    border-radius: 30px 55px;
+    display: inline-block;
+    margin-right: 10px;
+
+    @media (max-width: 645px) {
+      display: none;
+    }
+  }
+
+  cite {
+    width: 70%;
+    display: inline-block;
+    font-size: 1.8em;
+  }
+}
+
+mat-card {
+  border: 1px solid rgb(197, 197, 197);
+  border-top: none;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,98 @@
+<app-skip-link targetElement="footer"></app-skip-link>
+<mat-table *ngIf="myBookings.length != 0; else noResults" [dataSource]="myBookings" matSort class="mat-elevation-z8">
+
+  <!-- Date Column -->
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Flug Datum </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.date | date:'d. MMMM y'}} </mat-cell>
+  </ng-container>
+
+  <!-- Departure Column -->
+  <ng-container matColumnDef="departure">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Abflug </mat-header-cell>
+    <mat-cell *matCellDef="let element">Um {{element.flight.departureTime | time}}<br aria-hidden="true"> von
+      {{element.flight.departureAirport.name}}</mat-cell>
+  </ng-container>
+
+  <!-- Arrival Column -->
+  <ng-container matColumnDef="arrival">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Ankunft </mat-header-cell>
+    <mat-cell *matCellDef="let element">Um {{ element.flight.arrivalTime | time}}<br aria-hidden="true"> in
+      {{element.flight.arrivalAirport.name}}</mat-cell>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Preis </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.flight.price| currency:'EUR':'' }}€ </mat-cell>
+  </ng-container>
+
+  <!-- Options Column -->
+  <ng-container matColumnDef="options">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Details </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button class="optionsButton" (click)="showBookingDetails(element)" aria-label="Details zur Buchung ansehen">
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<!-- Booking Details Overlay-->
+<div *ngIf="bookingForDetailView" id="bookingInfosModalContainer" role="dialog" aria-labelledby="bookingInfos"
+  style="z-index: 1" (keydown.escape)="hideBookingDetails()" tabindex="-1" cdkTrapFocus cdkTrapFocusAutoCapture>
+  <mat-card id="bookingInfosModal">
+    <h2 mat-card-header id="bookingInfos">
+      <p *ngIf="cancelled" style="background-color: #880E4F; color: white; font-size: 0.8em">Storniert</p>
+      Buchungsdetails
+    </h2>
+    <p>{{bookingForDetailView.date | date}} ({{bookingForDetailView.date | relativedate}})<br>
+      Flug von {{bookingForDetailView.flight.departureAirport.name}} nach
+      {{bookingForDetailView.flight.arrivalAirport.name}}</p>
+    <mat-card-content>
+      <mat-card id="passengerCard" role="region" aria-labelledby="passengerHeader">
+        <h3 mat-card-header id="passengerHeader">Passagierer</h3>
+        <mat-card-content>
+          <h4>Name</h4>
+          <p>{{bookingForDetailView.passenger.firstName}} {{bookingForDetailView.passenger.lastName}}</p>
+          <h4>Straße und Hausnummer</h4>
+          <p>{{bookingForDetailView.passenger.streetAndNumber}}</p>
+          <h4>Postleitzahl und Ort</h4>
+          <p>{{bookingForDetailView.passenger.postalCode}} {{bookingForDetailView.passenger.city}}</p>
+          <h4>Geburtsdatum</h4>
+          <p>{{bookingForDetailView.passenger.dayOfBirth | date}}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card id="paymentCard" role="region" aria-labelledby="paymentHeader">
+        <h3 mat-card-header id="paymentHeader">Zahlungsinformationen</h3>
+        <mat-card-content>
+          <h4>Kreditkarteninhaber</h4>
+          <p>{{bookingForDetailView.payment.creditCardOwner}}</p>
+          <h4>Kreditkartennummer</h4>
+          <p>{{bookingForDetailView.payment.creditCardNumber}}</p>
+          <h4>Prüfnummer</h4>
+          <p>{{bookingForDetailView.payment.controlNumber}}</p>
+          <h4>Gültig bis (Monat/Jahr)</h4>
+          <p>{{bookingForDetailView.payment.validUntil}}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" id="closeDetailsModalButton"
+        (click)="hideBookingDetails()">Schließen</button>
+      <button *ngIf="!cancelled" mat-raised-button color="warn" style="color: white"
+        (click)="deleteFlight(bookingForDetailView.id)">Stornieren</button>
+      <button *ngIf="cancelled" mat-raised-button color="warn"
+        (click)="undoCancelBooking(bookingForDetailView)">Stornierung rückgängig machen</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+
+<!-- If there are no bookings -->
+<ng-template #noResults>
+  <p>Sie haben noch keine Flüge gebucht.</p>
+</ng-template>

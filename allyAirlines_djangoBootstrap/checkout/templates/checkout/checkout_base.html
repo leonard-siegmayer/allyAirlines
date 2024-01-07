@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- FILES and TITLE-->
+{% block css %}{{ block.super }}
+<link rel="stylesheet/less" type="text/css" href="{% static 'checkout/style.scss' %}">{% endblock %}
+{% block js %}{{ block.super }}<script src="{% static 'checkout/checkout.js' %}"></script>{% endblock %}
+{% block title %}Buchungsabwicklung{% endblock %}
+{% block mainHeading %}Buchungsabwicklung{% endblock %}
+
+<!-- Add Active Page Message for Screen Reader -->
+{% block sr_only_placeholder_booking %}<span class="sr-only">(aktuelle Seite)</span>{% endblock %}
+
+<!-- BREADCRUMBS -->
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="/flights">Flug Suchen</a></li>
+<li class="breadcrumb-item"><a href="/checkout">Flug Buchen</a></li>
+{% endblock %}
+
+<!-- The CONTENT-->
+{% block content %}
+
+<!-- Checkout Form -->
+<a class="sr-only sr-only-focusable" href="#footer">Abschnitt überspringen</a>
+{% include "checkout/checkoutForm.html" with csrf_token=csrf_token nextButtonText=nextButtonText date=date flight=flight form=form header=header step=step previous_step=previous_step max_step=max_step passenger=passenger payment=payment nextButtonText=nextButtonText %}
+<!-- Progress Tracker -->
+{% include "checkout/checkoutProgress.html" with step=step %}
+
+{% endblock %}

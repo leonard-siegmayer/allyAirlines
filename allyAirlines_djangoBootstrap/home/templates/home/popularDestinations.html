@@ -1,0 +1,60 @@
+{% load static %}
+<div aria-roledescription="Karussell" role="region" aria-live="off">
+    <!-- Pause Button -->
+    <span aria-atomic="true" aria-live="polite">
+        <button onclick="toggleCarousel()" id="pauseButton" class="btn btn-primary" aria-label="Karussell Pausieren"
+            aria-controls="carousel_popular">&#10074;&#10074;</button>
+    </span>
+    <!-- Carousel Content -->
+    <div class="row">
+        <div id="carousel_popular" class="carousel slide col-sm" data-ride="carousel">
+            <div class="carousel-inner">
+                <a class="carousel-control-prev" href="#carousel_popular" role="button" data-slide="prev"
+                    onfocus="pauseCarousel()" onblur="resetCarousel()">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only text-dark">Vorherige Reise</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel_popular" role="button" data-slide="next"
+                    onfocus="pauseCarousel()" onblur="resetCarousel()">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only text-dark">Nächste Reise</span>
+                </a>
+                <a class="carousel-item popular-carousel-item active text-dark"
+                    href="/flights/?firstFlight=Frankfurt+%28FRA%29&secondFlight=Paris+%28XPG%29"
+                    aria-labelledby="carousel-heading1" onfocus="pauseCarousel()" onblur="resetCarousel()">
+                    <img id="paris" src="{% static 'home/images/popular/paris.jpg' %}" class="d-block w-100"
+                        alt="Von Frankfurt nach Paris - ab 38,46€">
+                    <h3 class="carousel-caption rounded" id="carousel-heading1">
+                        Flug von Frankfurt nach Paris ab 38,46€
+                    </h3>
+                </a>
+                <a class="carousel-item  popular-carousel-item text-dark"
+                    href="/flights/?firstFlight=Frankfurt+%28FRA%29&secondFlight=Tokio+%28NRT%29"
+                    aria-labelledby="carousel-heading2" onfocus="pauseCarousel()" onblur="resetCarousel()">
+                    <img id="tokio" src="{% static 'home/images/popular/tokyo.jpg' %}" class="d-block w-100"
+                        alt="Von Frankfurt nach Tokio - ab 349,22€">
+                    <h3 class="carousel-caption rounded" id="carousel-heading2">
+                        Flug von Frankfurt nach Tokio ab 349,22€
+                    </h3>
+                </a>
+                <a href="/flights/?firstFlight=Nürnberg+%28NUE%29&secondFlight=Rio+De+Janeiro+%28GIG%29"
+                    class="carousel-item popular-carousel-item text-dark" onfocus="pauseCarousel()"
+                    onblur="resetCarousel()" aria-labelledby="carousel-heading3">
+                    <img id="rio" src="{% static 'home/images/popular/rio.jpg' %}" class="d-block w-100"
+                        alt="Von Nürnberg nach Rio de Janeiro - ab 78,20€">
+                    <h3 class="carousel-caption rounded" id="carousel-heading3">
+                        Flug von Nürnberg nach Rio de Janeiro ab 78,20€
+                    </h3>
+                </a>
+            </div>
+            <ol class="carousel-indicators">
+                <li data-target="#carousel_popular" data-slide-to="0" class="active" aria-controls="carousel_popular">
+                </li>
+                <li data-target="#carousel_popular" data-slide-to="1" aria-controls="carousel_popular">
+                </li>
+                <li data-target="#carousel_popular" data-slide-to="2" aria-controls="carousel_popular">
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

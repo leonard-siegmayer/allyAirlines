@@ -1,0 +1,79 @@
+{% load static %}
+
+<!-- Adding AJAX to receive autofill options -->
+{% block placeholderInHeader %}
+<script>
+  /**
+    Requests the option for the autofill feature of the search form from the backend via AJAX.
+  */
+  function getOptions(inputId, dataListId) {
+    let searchValue = document.getElementById(inputId).value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById(dataListId).innerHTML = createOptions(JSON.parse(this.responseText).options);
+      }
+    };
+    xhttp.open("GET", '{% url "autocomplete" %}?search=' + searchValue, true);
+    xhttp.send();
+  }
+
+  /**
+    From an array of strings, the option elements for the autocompletion feature are created and returned.
+  */
+  function createOptions(elems) {
+    result = '';
+    elems.forEach(e => {
+      result += `<option value="${e.name}">${e.name} | ${e.country}</option>`;
+    });
+    return result;
+  }
+</script>
+{% endblock %}
+
+<!-- The Search Form -->
+<form action="/flights" method="GET" class="jumbotron pt-3 pb-3" autocomplete="off">
+  <div class="form-row align-items-center">
+    <div class="col-12">
+      <div class="row">
+        <div class="col my-1">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text bg-dark text-white" for="flightDateInput">Flug Datum*</label>
+            </div>
+            <input type="date" min='{% now "Y-m-d" %}' class="form-control" id="flightDateInput" name="date" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="row mt-0">
+        <div class="col my-1">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text bg-dark text-white" for="firstFlightInput">Start Flughafen*</label>
+            </div>
+            <input aria-owns="firstFlightDataList" aria-haspopup="true" type="text" aria-controls="firstFlightDataList"
+              class="form-control" name="firstFlight" placeholder="Start" id="firstFlightInput"
+              list="firstFlightDataList" oninput="getOptions('firstFlightInput', 'firstFlightDataList')"
+              onfocus="getOptions('firstFlightInput', 'firstFlightDataList')" required>
+            <datalist id="firstFlightDataList"></datalist>
+          </div>
+        </div>
+        <div class="col my-1">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text bg-dark text-white" for="secondFlightInput">Ziel Flughafen*</label>
+            </div>
+            <input aria-owns="secondFlightDataList" aria-haspopup="true" type="text" class="form-control"
+              name="secondFlight" placeholder="Ziel" id="secondFlightInput" list="secondFlightDataList"
+              oninput="getOptions('secondFlightInput', 'secondFlightDataList')"
+              onfocus="getOptions('secondFlightInput', 'secondFlightDataList')" required>
+            <datalist id="secondFlightDataList"></datalist>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-success" type="submit">Flüge suchen</button>
+</form>
