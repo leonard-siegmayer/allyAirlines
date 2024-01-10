@@ -4,6 +4,8 @@ Ally Airlines is a fictional airline, for which two web application were develop
 One project uses [Angular](https://angular.io/) and [Angular Material](https://material.angular.io/), the other one [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/) and [Django](https://www.djangoproject.com/).  
 This file describes the main functionalities. Details about the respective projects can be found in their own READMEs.
 
+More in depth explanations of the implementation and its features related to accessibility can be found in the Bachelor_Thesis.pdf (only in german).
+
 ## Main Functionalities
 The projects provide functions to search for flights, make and manage bookings and to view special offers. The login functionalities are just dummies, which succeed with every username and password.  
 
